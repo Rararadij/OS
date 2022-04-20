@@ -1,0 +1,22 @@
+all: prog1 prog2
+
+prog1: lib1.so
+	gcc prog1.c -L/home/mosik/os_lab5 -l1 -Wall -o prog1
+
+prog2: lib1.so lib2.so
+	gcc prog2.c -ldl -o prog2
+
+lib1.so: lib1.o
+	gcc lib1.o -lm -shared -o lib1.so
+
+lib2.so: lib2.o
+	gcc lib2.o -shared -o lib2.so
+
+lib1.o:
+	gcc lib1.c -c -Wall -Werror -fpic -o lib1.o
+
+lib2.o:
+	gcc lib2.c -c -Wall -Werror -fpic -o lib2.o
+
+clean:
+	rm -rf *.so *.o prog1 prog2
